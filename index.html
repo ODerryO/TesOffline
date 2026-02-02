@@ -14,16 +14,16 @@
     input, textarea, select { width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:10px; margin-top:6px; box-sizing:border-box; }
     button { padding:10px 12px; border:0; border-radius:10px; cursor:pointer; }
     .row { display:flex; gap:10px; flex-wrap:wrap; }
-    .row > * { flex:1; min-width: 160px; }
-    .muted { color:#475569; font-size: 13px; }
+    .row > div { flex:1 1 220px; }
     .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     .primary { background:#0f172a; color:#fff; }
     .secondary { background:#e2e8f0; color:#0f172a; }
-    .danger { background:#fee2e2; color:#991b1b; }
-    img { max-width: 100%; border-radius:10px; border:1px solid #e2e8f0; margin-top:8px; }
-    table { width:100%; border-collapse: collapse; }
-    th, td { border-bottom:1px solid #e2e8f0; padding:10px; text-align:left; vertical-align:top; }
-    th { background:#f8fafc; }
+    .danger { background:#ef4444; color:#fff; }
+    .muted { color:#64748b; font-size: 13px; }
+    table { width:100%; border-collapse:collapse; margin-top:10px; }
+    th, td { border-bottom:1px solid #e2e8f0; padding:8px; text-align:left; vertical-align:top; }
+    img { max-width:140px; border-radius:10px; border:1px solid #e2e8f0; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:999px; background:#e2e8f0; font-size:12px; }
   </style>
 </head>
 <body>
@@ -35,13 +35,14 @@
 
     <div class="row">
       <div>
-        <label>Nama</label>
-        <input id="nama" list="namaList" placeholder="Ketik nama. Akan muncul saran" />
+        <label>Nomor Pelanggan</label>
+        <input id="nama" list="namaList" inputmode="numeric" autocomplete="off" placeholder="Ketik nomor pelanggan (contoh: 123). Akan muncul saran" />
         <datalist id="namaList"></datalist>
+        <div id="namaSuggest" class="muted"></div>
       </div>
       <div>
-        <label>Tanggal</label>
-        <input id="tanggal" type="date" />
+        <label>Kondisi Lapangan</label>
+        <select id="kondisiLapangan"></select>
       </div>
     </div>
 
@@ -54,32 +55,28 @@
         <label>Nama Cabang</label>
         <select id="cabangSelect"></select>
       </div>
-    </div>
-
-    <div class="row">
       <div>
         <label>Golongan</label>
         <select id="golonganSelect"></select>
       </div>
-      <div>
-        <label>Lokasi</label>
-        <input id="lokasi" placeholder="Contoh: Kelurahan X, Kecamatan Y" />
-      </div>
     </div>
 
+    <label>Lokasi</label>
+    <input id="lokasi" placeholder="Alamat / titik lokasi / catatan lokasi" />
+
     <label>Catatan</label>
-    <textarea id="catatan" rows="3" placeholder="Keterangan tambahan"></textarea>
+    <textarea id="catatan" rows="3" placeholder="Catatan tambahan..."></textarea>
 
     <div class="row">
       <div>
-        <label>Foto 1 (kamera)</label>
+        <label>Foto 1</label>
         <input id="foto1" type="file" accept="image/*" capture="environment" />
-        <div id="prev1" class="muted"></div>
+        <div class="muted" id="prev1">Belum ada.</div>
       </div>
       <div>
-        <label>Foto 2 (kamera)</label>
+        <label>Foto 2</label>
         <input id="foto2" type="file" accept="image/*" capture="environment" />
-        <div id="prev2" class="muted"></div>
+        <div class="muted" id="prev2">Belum ada.</div>
       </div>
     </div>
 
@@ -88,28 +85,30 @@
       <button class="secondary" id="btnReset">Reset form</button>
     </div>
 
-    <p class="muted">
-      Data tersimpan lokal di HP. Export berkala untuk backup.
+    <p class="muted" style="margin-top:10px;">
+      Catatan: untuk mode offline penuh, buka lewat <b>HTTP/HTTPS</b> lalu install (PWA).
     </p>
   </div>
 
   <div class="card">
     <h3>Data Tersimpan</h3>
     <div class="actions">
-      <button class="secondary" id="btnRefresh">Muat ulang daftar</button>
-      <button class="primary" id="btnExportZip">Export ZIP (CSV + Foto)</button>
-      <button class="secondary" id="btnExportCsvOnly">Export CSV saja</button>
+      <button class="secondary" id="btnRefresh">Refresh</button>
+      <button class="secondary" id="btnExportCSV">Export CSV</button>
+      <button class="secondary" id="btnExportZIP">Export ZIP (CSV + foto)</button>
+      <button class="danger" id="btnHapusSemua">Hapus Semua</button>
     </div>
 
-    <div style="margin-top:12px; overflow:auto;">
+    <div style="overflow:auto;">
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nama</th>
+            <th>No Pelanggan</th>
             <th>Status</th>
             <th>Cabang</th>
             <th>Golongan</th>
+            <th>Kondisi</th>
             <th>Tanggal</th>
             <th>Lokasi</th>
             <th>Catatan</th>
@@ -124,12 +123,7 @@
     </div>
   </div>
 
-<script
-  src="./jszip.min.js"
-  onload="document.getElementById('status').textContent = 'JSZip loaded: ' + (!!window.JSZip)"
-  onerror="alert('Gagal load jszip.min.js. Cek nama file, lokasi file, dan cache.')"
-></script>
-<script src="./app.js"></script>
-
+  <script src="./jszip.min.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>

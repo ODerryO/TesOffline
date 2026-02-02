@@ -1,4 +1,4 @@
-const CACHE_NAME = "form-offline-v3";
+const CACHE_NAME = "form-offline-v4";
 
 const ASSETS = [
   "./",
@@ -6,7 +6,8 @@ const ASSETS = [
   "./app.js",
   "./sw.js",
   "./manifest.json",
-  "./jszip.min.js"
+  "./jszip.min.js",
+  "./customers.txt"
 ];
 
 self.addEventListener("install", (event) => {
