@@ -19,7 +19,8 @@ const STATUS_OPTIONS = ["", "Aktif", "Segel", "Segel Permintaan", "Bongkar"];
 const CABANG_OPTIONS = ["", "Cabang Sumbawa", "Cabang Utan", "Cabang Alas", "Cabang Alas Barat", "Cabang Empang", "Cabang Plampang"];
 const GOLONGAN_OPTIONS = ["",
   "A1 SOSIAL KHUSUS ( PANTI ASUHAN, MASJID, SDN, PUSKESMAS )",
-  "2B  RUMAH TANGGA II ( RUMAH TANGGA BANGUNAN PERMANEN)", "2C RUMAH TANGGA III ( BERMOBIL / TINGKAT 2 LANTAI )",
+  "2B  RUMAH TANGGA II ( RUMAH TANGGA BANGUNAN PERMANEN)",
+  "2C RUMAH TANGGA III ( BERMOBIL / TINGKAT 2 LANTAI )",
   "2D RUMAH TANGGA IV ( RUMAH MEWAH )",
   "3A NIAGA I ( SALON, WARNET, WARUNG )",
   "3B NIAGA II ( restoran, kos, laundry, gudang/ruko/lab, apotek/klinik, dealer, sekolah swasta, cuci mobil/motor)",
