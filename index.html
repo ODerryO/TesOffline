@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="./manifest.json" />
+  <title>Form Offline + 2 Foto</title>
+
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 16px; color:#0f172a; }
+    .card { border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:14px; }
+    label { display:block; font-weight:600; margin-top:10px; }
+    input, textarea, select { width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:10px; margin-top:6px; box-sizing:border-box; }
+    button { padding:10px 12px; border:0; border-radius:10px; cursor:pointer; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; }
+    .row > * { flex:1; min-width: 160px; }
+    .muted { color:#475569; font-size: 13px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .primary { background:#0f172a; color:#fff; }
+    .secondary { background:#e2e8f0; color:#0f172a; }
+    .danger { background:#fee2e2; color:#991b1b; }
+    img { max-width: 100%; border-radius:10px; border:1px solid #e2e8f0; margin-top:8px; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border-bottom:1px solid #e2e8f0; padding:10px; text-align:left; vertical-align:top; }
+    th { background:#f8fafc; }
+  </style>
+</head>
+<body>
+  <h2>Form Offline + 2 Foto</h2>
+  <p class="muted" id="status">Memuat...</p>
+
+  <div class="card">
+    <h3>Input Data</h3>
+
+    <div class="row">
+      <div>
+        <label>Nama</label>
+        <input id="nama" list="namaList" placeholder="Ketik nama. Akan muncul saran" />
+        <datalist id="namaList"></datalist>
+      </div>
+      <div>
+        <label>Tanggal</label>
+        <input id="tanggal" type="date" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Status</label>
+        <select id="statusSelect"></select>
+      </div>
+      <div>
+        <label>Nama Cabang</label>
+        <select id="cabangSelect"></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Golongan</label>
+        <select id="golonganSelect"></select>
+      </div>
+      <div>
+        <label>Lokasi</label>
+        <input id="lokasi" placeholder="Contoh: Kelurahan X, Kecamatan Y" />
+      </div>
+    </div>
+
+    <label>Catatan</label>
+    <textarea id="catatan" rows="3" placeholder="Keterangan tambahan"></textarea>
+
+    <div class="row">
+      <div>
+        <label>Foto 1 (kamera)</label>
+        <input id="foto1" type="file" accept="image/*" capture="environment" />
+        <div id="prev1" class="muted"></div>
+      </div>
+      <div>
+        <label>Foto 2 (kamera)</label>
+        <input id="foto2" type="file" accept="image/*" capture="environment" />
+        <div id="prev2" class="muted"></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="btnSimpan">Simpan (offline)</button>
+      <button class="secondary" id="btnReset">Reset form</button>
+    </div>
+
+    <p class="muted">
+      Data tersimpan lokal di HP. Export berkala untuk backup.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Data Tersimpan</h3>
+    <div class="actions">
+      <button class="secondary" id="btnRefresh">Muat ulang daftar</button>
+      <button class="primary" id="btnExportZip">Export ZIP (CSV + Foto)</button>
+      <button class="secondary" id="btnExportCsvOnly">Export CSV saja</button>
+    </div>
+
+    <div style="margin-top:12px; overflow:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Status</th>
+            <th>Cabang</th>
+            <th>Golongan</th>
+            <th>Tanggal</th>
+            <th>Lokasi</th>
+            <th>Catatan</th>
+            <th>Foto</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="10" class="muted">Belum ada data.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<script
+  src="./jszip.min.js"
+  onload="document.getElementById('status').textContent = 'JSZip loaded: ' + (!!window.JSZip)"
+  onerror="alert('Gagal load jszip.min.js. Cek nama file, lokasi file, dan cache.')"
+></script>
+<script src="./app.js"></script>
+
+</body>
+</html>
